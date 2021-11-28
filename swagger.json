@@ -1,0 +1,325 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Members",
+    "description": "This is the documentation for the Members API",
+    "version": "1.0.0",
+    "contact": {
+      "email": "arthurkvasque.eng@outlook.com"
+    }
+  },
+  "tags": [
+    {
+      "name": "Users",
+      "description": "User management"
+    }
+  ],
+  "paths": {
+    "/users": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Create a new User",
+        "description": "Create a new user",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "name",
+                  "email"
+                ],
+                "example": {
+                  "name": "John Doe",
+                  "description": "JohnDoe@mail.com"
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "The user has been created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "admin": {
+                      "type": "boolean"
+                    },
+                    "created_at": {
+                      "type": "string"
+                    },
+                    "updated_at": {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "id": "ff97af8b-09ca-487b-84a1-56595f96a45c",
+                    "name": "John Doe",
+                    "description": "JohnDoe@mail.com",
+                    "admin": "false",
+                    "created_at": "Fri Mar 19 2021 15:43:12 GMT+0000",
+                    "updated_at": "Fri Mar 19 2021 15:43:12 GMT+0000"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "User already exists! The email to be unique in the platform."
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "List all Users",
+        "description": "Only the admin can have access.",
+        "responses": {
+          "200": {
+            "description": "The operation was successfully completed ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "email": {
+                        "type": "string"
+                      },
+                      "admin": {
+                        "type": "boolean"
+                      },
+                      "created_at": {
+                        "type": "string"
+                      },
+                      "updated_at": {
+                        "type": "string"
+                      }
+                    },
+                    "example": {
+                      "id": "ff97af8b-09ca-487b-84a1-56595f96a45c",
+                      "name": "John Doe",
+                      "description": "JohnDoe@mail.com",
+                      "admin": "false",
+                      "created_at": "Fri Mar 19 2021 15:43:12 GMT+0000",
+                      "updated_at": "Fri Mar 19 2021 15:43:12 GMT+0000"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The operation was not completed successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "example": [
+                    {
+                      "error": "Area restricted. You don't have the authorization to execute this request."
+                    },
+                    {
+                      "error": "How did you get here if you don't exist?"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{user_id}": {
+      "get": {
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "description": "ID of user to return",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Users"
+        ],
+        "summary": "Get a specific user",
+        "description": "Only the admin can have access.",
+        "responses": {
+          "200": {
+            "description": "The operation was successfully completed ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "email": {
+                        "type": "string"
+                      },
+                      "admin": {
+                        "type": "boolean"
+                      },
+                      "created_at": {
+                        "type": "string"
+                      },
+                      "updated_at": {
+                        "type": "string"
+                      }
+                    },
+                    "example": {
+                      "id": "ff97af8b-09ca-487b-84a1-56595f96a45c",
+                      "name": "John Doe",
+                      "description": "JohnDoe@mail.com",
+                      "admin": "false",
+                      "created_at": "Fri Mar 19 2021 15:43:12 GMT+0000",
+                      "updated_at": "Fri Mar 19 2021 15:43:12 GMT+0000"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The operation was not completed successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "error": "It is not possible to show the profile of a non-existent user"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{user_id}/admin": {
+      "patch": {
+        "tags": [
+          "Users"
+        ],
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "description": "ID of user to return",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "summary": "Promote a user to an administrator",
+        "description": "Promote a user to an administrator",
+        "responses": {
+          "200": {
+            "description": "The operation was successfully completed ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "email": {
+                        "type": "string"
+                      },
+                      "admin": {
+                        "type": "boolean"
+                      },
+                      "created_at": {
+                        "type": "string"
+                      },
+                      "updated_at": {
+                        "type": "string"
+                      }
+                    },
+                    "example": {
+                      "id": "ff97af8b-09ca-487b-84a1-56595f96a45c",
+                      "name": "John Doe",
+                      "description": "JohnDoe@mail.com",
+                      "admin": "true",
+                      "created_at": "Fri Mar 19 2021 15:43:12 GMT+0000",
+                      "updated_at": "Fri Mar 19 2021 15:43:12 GMT+0000"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The operation was not completed successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "error": "How did you get here if you don't exist?"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
